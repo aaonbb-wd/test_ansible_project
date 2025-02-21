@@ -1,0 +1,9 @@
+---
+- name: create wp site
+  hosts: [wordpress]
+  become: true
+  roles:
+    - { role: nginx, tags: ["nginx_all"] }
+    - { role: php, tags: ["php_all"] }
+    - { role: mysql, tags: ["mysql_all"] }
+    - { role: wp, tags: ["wp_all"] }

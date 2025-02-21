@@ -1,0 +1,35 @@
+---
+- name: Download latest WordPress archive
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /tmp/latest.tar.gz
+    mode: "0644"
+
+- name: Extract WordPress archive to target directory
+  unarchive:
+    src: /tmp/latest.tar.gz
+    dest: /var/www/html
+    remote_src: yes
+
+- name: Set proper ownership and permissions for WordPress directory
+  file:
+    path: /var/www/html/wordpress
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+    recurse: yes
+
+- name: Deploy wp-config.php from template
+  template:
+    src: wp-config.php.j2
+    dest: /var/www/html/wordpress/wp-config.php
+    owner: www-data
+    group: www-data
+    mode: "0644"
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+  become: true

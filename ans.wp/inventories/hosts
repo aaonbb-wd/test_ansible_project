@@ -1,0 +1,7 @@
+#[my_servers]
+
+#192.168.0.144 ansible_user=user ansible_ssh_private_key_file=/home/mykekoby/test_ansible_project/ans.wp/key/id_rsa_vb10
+
+[wordpress]
+3.78.188.150
+192.168.0.104
